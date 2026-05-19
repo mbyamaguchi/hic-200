@@ -28,21 +28,25 @@ def make_bin_def(path: Path, outputpath: Path, resolution=200, nchroms=3) -> Non
     }
 
     with open(outputpath, mode='wt', encoding="utf-8") as f:
+        header = "bin\tchrom\tstart\tend\tbinsize\n"
+        f.write(header)
         bin_start = 0
         for binn in range(bins_chroms[0]):
             bin_end = min(bin_start + resolution - 1, chroms[0] - 1)
-            line = f'{binn+1}\tI\t{bin_start}\t{bin_end}\n'
+            binsize = bin_end - bin_start + 1
+            line = f'{binn+1}\tI\t{bin_start}\t{bin_end}\t{binsize}\n'
             f.write(line)
             bin_start += resolution
         bin_start = chroms[0]
         for chrom in range(1, nchroms):
-            for binn in range(bins_chroms[chrom]):
-                bin_end = min(bin_start + resolution - 1, chroms[0] - 1)
-                line = f'{binn+1+bins_chroms[chrom-1]}\t{mapping[chrom]}\t{bin_start}\t{bin_end}\n'
+            for binn in range(sum(bins_chroms[0:chrom]), sum(bins_chroms[0:chrom+1])):
+                bin_end = min(bin_start + resolution - 1, sum(chroms[0:chrom+1]) - 1)
+                binsize = bin_end - bin_start + 1
+                line = f'{binn+1}\t{mapping[chrom]}\t{bin_start}\t{bin_end}\t{binsize}\n'
                 f.write(line)
                 bin_start += resolution
-                bin_start = min(bin_start, chroms[chrom])
-            bin_start = chroms[chrom]
+                bin_start = min(bin_start, sum(chroms[0:chrom+1]) - 1)
+            bin_start = sum(chroms[0:chrom+1])
 
 if __name__ == "__main__":
     make_bin_def()
