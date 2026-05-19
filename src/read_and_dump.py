@@ -2,6 +2,7 @@ import gzip
 from pathlib import Path
 import math
 from typing import Dict
+import os
 
 def find_bin_offset_by_chrom(binpath: Path) -> Dict:
     with open(binpath, mode='rt', encoding="utf-8") as f:
@@ -33,6 +34,13 @@ def find_bin_offset_by_chrom(binpath: Path) -> Dict:
 
 def read_and_dump(path: Path, binpath: Path, outpath: Path, resolution: int, readlimit: int=1000000) -> None:
 
+    if os.path.exists(outpath):
+        print(f"the file {outpath} exists.")
+        prompt = input("overwrite? [y/N]")
+        if not (prompt == 'y' or prompt == 'Y'):
+            return
+
+
     chr_offset = find_bin_offset_by_chrom(binpath)
 
     with gzip.open(path, mode='rt', encoding="utf-8") as fi, open(outpath, mode='wt', encoding="utf-8") as fo:
@@ -62,19 +70,19 @@ def read_and_dump(path: Path, binpath: Path, outpath: Path, resolution: int, rea
             local_bin_idx1 = math.floor(midpoint1 / resolution)
             local_bin_idx2 = math.floor(midpoint2 / resolution)
 
-            print("[log] local_bin_idx1:", local_bin_idx1)
-            print("[log] local_bin_idx2:", local_bin_idx2)
+            # print("[log] local_bin_idx1:", local_bin_idx1)
+            # print("[log] local_bin_idx2:", local_bin_idx2)
 
             global_bin_idx1 = local_bin_idx1 + chr_offset[chr1]
             global_bin_idx2 = local_bin_idx2 + chr_offset[chr2]
 
-            print("[log] global_bin_idx1:", global_bin_idx1)
-            print("[log] global_bin_idx1:", global_bin_idx1)
+            # print("[log] global_bin_idx1:", global_bin_idx1)
+            # print("[log] global_bin_idx2:", global_bin_idx2)
 
-            return
+            # print("[log] score:", score)
 
             if (global_bin_idx1 <= global_bin_idx2) \
-                and ((global_bin_idx2 - global_bin_idx1) >= readlimit) \
-                and score != 0:
+                and ((global_bin_idx2 - global_bin_idx1) < readlimit) \
+                and score > 0:
                 writeln = f"{global_bin_idx1}\t{global_bin_idx2}\t{score}\n"
                 fo.write(writeln)

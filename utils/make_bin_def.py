@@ -8,6 +8,12 @@ import click
 @click.option("--resolution", default=200, type=int)
 @click.option("--nchroms", default=3, type=int)
 def make_bin_def(path: Path, outputpath: Path, resolution=200, nchroms=3) -> None:
+
+    print(f"the file {outputpath} exists.")
+    prompt = input("overwrite? [y/N]")
+    if not (prompt == 'y' or prompt == 'Y'):
+        return
+
     chroms = []
     with open(path, mode='rt', encoding="utf-8") as f:
         for _ in range(nchroms):
