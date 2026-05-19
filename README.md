@@ -1,6 +1,19 @@
-# hic-200
+# hic-200 (hic200.py)
 
 ## Usage
+
+### Simple usage
+
+```sh
+pixi run python hic200.py \
+    --tmpdir [TMPDIR] \
+    [BINPATH] [INPUTPATH] [OUTPUTPATH]
+```
+
+- tmpdir: specify the directory for temporary use.
+- binpath: bin definition file
+- inputpath: count score file
+- outputpath: file for output
 
 ### 1. pixi setup
 

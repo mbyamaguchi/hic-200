@@ -72,7 +72,7 @@ def midpoint_to_bin(chrom, mid, chr_meta):
     "output_file",
     type=click.Path()
 )
-def main(bin_file, max_distance, input_gz, output_file):
+def read_and_dump2(bin_file, max_distance, input_gz, output_file):
     chr_meta = load_bin_metadata(bin_file)
 
     valid_chr = {"I", "II", "III"}
@@ -121,4 +121,4 @@ def main(bin_file, max_distance, input_gz, output_file):
             fout.write(f"{bin1}\t{bin2}\t{score}\n")
 
 if __name__ == "__main__":
-    main()
+    read_and_dump2()

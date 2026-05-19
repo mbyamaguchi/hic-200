@@ -38,7 +38,7 @@ def aggregate_sorted_file(sorted_file, output_file):
 @click.option("--sorted")
 @click.option("--sortmemory", default="1G")
 @click.option("--tmpdir", default="/tmp")
-def main(tmppairs, output, sorted, sortmemory, tmpdir):
+def dump_to_sort(tmppairs, output, sorted, sortmemory, tmpdir):
     sort_cmd = [
         "sort",
         "-S", sortmemory,
@@ -53,4 +53,4 @@ def main(tmppairs, output, sorted, sortmemory, tmpdir):
     aggregate_sorted_file(sorted, output)
 
 if __name__ == "__main__":
-    main()
+    dump_to_sort()

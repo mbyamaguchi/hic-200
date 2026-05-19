@@ -4,7 +4,6 @@ def read_chromosome_length(site_file, target_chroms):
     """
     Input format:
     #number chr position    length_before   length_after
-    1   III   0 0   17
 
     chromosome length is inferred as:
         max(position + length_after)
@@ -66,7 +65,7 @@ def read_chromosome_length(site_file, target_chroms):
     "output_bin_file",
     type=click.Path()
 )
-def main(bin_size, chroms, site_file, output_bin_file):
+def make_bin_def2(bin_size, chroms, site_file, output_bin_file):
     target_chroms = chroms.split(",")
 
     chrom_lengths = read_chromosome_length(
@@ -96,4 +95,4 @@ def main(bin_size, chroms, site_file, output_bin_file):
                 bin_id += 1
 
 if __name__ == "__main__":
-    main()
+    make_bin_def2()
