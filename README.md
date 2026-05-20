@@ -1,10 +1,8 @@
 # hic-200 (hic200.py)
 
-## Usage
-
 We use python==3.11.* for the scripts.
 
-### Simple usage
+## Simple usage
 
 ```sh
 pixi run python hic200.py \
@@ -24,6 +22,8 @@ pixi run python hic200.py \
 - sitepath: restriction enzyme site file
 - inputpath: count score file
 - outputpath: file for output
+
+## step-by-step
 
 ### 1. pixi setup
 
