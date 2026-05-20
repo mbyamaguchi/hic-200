@@ -2,26 +2,38 @@
 
 ## Usage
 
+We use python==3.11.* for the scripts.
+
 ### Simple usage
 
 ```sh
 pixi run python hic200.py \
     --tmpdir [TMPDIR] \
-    [BINPATH] [INPUTPATH] [OUTPUTPATH]
+    [SITEPATH] [INPUTPATH] [OUTPUTPATH]
+```
+
+Example:
+
+```sh
+pixi run python hic200.py \
+    --tmpdir ./tmp \
+    path/to/site_file.txt path/to/fragment_pair.txt.gz path/to/output.txt
 ```
 
 - tmpdir: specify the directory for temporary use.
-- binpath: bin definition file
+- sitepath: restriction enzyme site file
 - inputpath: count score file
 - outputpath: file for output
 
 ### 1. pixi setup
 
-Firstly, get pixi and run:
+Firstly, get pixi from [pixi installation](https://pixi.prefix.dev/latest/installation/) and run:
 
 ```sh
 pixi install
 ```
+
+to set up the environment.
 
 ### 2. make bin definition file.
 

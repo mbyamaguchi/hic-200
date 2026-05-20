@@ -52,7 +52,7 @@ def midpoint_to_bin(chrom, mid, chr_meta):
 def read_and_dump2_impl(bin_file, max_distance, input_gz, output_file):
     chr_meta = load_bin_metadata(bin_file)
 
-    valid_chr = {"I", "II", "III"}
+    # valid_chr = {"I", "II", "III"}
 
     with gzip.open(input_gz, "rt") as fin, open(output_file, "w") as fout:
         fout.write("bin1\tbin2\tscore\n")
