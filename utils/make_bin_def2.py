@@ -43,29 +43,7 @@ def read_chromosome_length(site_file, target_chroms):
 
     return chrom_lengths
 
-@click.command()
-@click.option(
-    "--bin-size",
-    default=200,
-    show_default=True,
-    type=int,
-    help="Bin size in bp."
-)
-@click.option(
-    "--chroms",
-    default="I,II,III",
-    show_default=True,
-    help="Comma-separated chromosome names to include."
-)
-@click.argument(
-    "site_file",
-    type=click.Path(exists=True)
-)
-@click.argument(
-    "output_bin_file",
-    type=click.Path()
-)
-def make_bin_def2(bin_size, chroms, site_file, output_bin_file):
+def make_bin_def2_impl(bin_size, chroms, site_file, output_bin_file):
     target_chroms = chroms.split(",")
 
     chrom_lengths = read_chromosome_length(
@@ -93,6 +71,31 @@ def make_bin_def2(bin_size, chroms, site_file, output_bin_file):
 
                 fout.write(f"{bin_id}\t{chrom}\t{start}\t{end}\n")
                 bin_id += 1
+
+@click.command()
+@click.option(
+    "--bin-size",
+    default=200,
+    show_default=True,
+    type=int,
+    help="Bin size in bp."
+)
+@click.option(
+    "--chroms",
+    default="I,II,III",
+    show_default=True,
+    help="Comma-separated chromosome names to include."
+)
+@click.argument(
+    "site_file",
+    type=click.Path(exists=True)
+)
+@click.argument(
+    "output_bin_file",
+    type=click.Path()
+)
+def make_bin_def2(bin_size, chroms, site_file, output_bin_file):
+    make_bin_def2_impl(bin_size, chroms, site_file, output_bin_file)
 
 if __name__ == "__main__":
     make_bin_def2()

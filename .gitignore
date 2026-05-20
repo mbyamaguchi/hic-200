@@ -7,5 +7,7 @@ examples/*
 
 # pycache
 src/__pycache__
+utils/__pycache__
 
-
+# tmp
+tmp/*

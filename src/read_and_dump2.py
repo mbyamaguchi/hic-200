@@ -49,30 +49,7 @@ def midpoint_to_bin(chrom, mid, chr_meta):
     local_index = mid // 200
     return meta["first_bin"] + local_index
 
-@click.command()
-@click.option(
-    "--bin",
-    "bin_file",
-    required=True,
-    type=click.Path(exists=True),
-    help="Bin definition file"
-)
-@click.option(
-    "--max-distance",
-    default=1_000_000,
-    show_default=True,
-    type=int,
-    help="Maximum cis genomic distance"
-)
-@click.argument(
-    "input_gz",
-    type=click.Path(exists=True)
-)
-@click.argument(
-    "output_file",
-    type=click.Path()
-)
-def read_and_dump2(bin_file, max_distance, input_gz, output_file):
+def read_and_dump2_impl(bin_file, max_distance, input_gz, output_file):
     chr_meta = load_bin_metadata(bin_file)
 
     valid_chr = {"I", "II", "III"}
@@ -119,6 +96,32 @@ def read_and_dump2(bin_file, max_distance, input_gz, output_file):
                 bin1, bin2 = bin2, bin1
             
             fout.write(f"{bin1}\t{bin2}\t{score}\n")
+
+@click.command()
+@click.option(
+    "--bin",
+    "bin_file",
+    required=True,
+    type=click.Path(exists=True),
+    help="Bin definition file"
+)
+@click.option(
+    "--max-distance",
+    default=1_000_000,
+    show_default=True,
+    type=int,
+    help="Maximum cis genomic distance"
+)
+@click.argument(
+    "input_gz",
+    type=click.Path(exists=True)
+)
+@click.argument(
+    "output_file",
+    type=click.Path()
+)
+def read_and_dump2(bin_file, max_distance, input_gz, output_file):
+    read_and_dump2_impl(bin_file, max_distance, input_gz, output_file)
 
 if __name__ == "__main__":
     read_and_dump2()

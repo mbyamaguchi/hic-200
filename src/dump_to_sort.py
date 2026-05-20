@@ -32,13 +32,7 @@ def aggregate_sorted_file(sorted_file, output_file):
         if prev_b1 is not None:
             fout.write(f"{prev_b1}\t{prev_b2}\t{total}\n")
 
-@click.command()
-@click.argument("tmppairs")
-@click.argument("output")
-@click.option("--sorted")
-@click.option("--sortmemory", default="1G")
-@click.option("--tmpdir", default="/tmp")
-def dump_to_sort(tmppairs, output, sorted, sortmemory, tmpdir):
+def dump_to_sort_impl(tmppairs, output, sorted, sortmemory, tmpdir):
     sort_cmd = [
         "sort",
         "-S", sortmemory,
@@ -51,6 +45,15 @@ def dump_to_sort(tmppairs, output, sorted, sortmemory, tmpdir):
 
     subprocess.run(sort_cmd, check=True)
     aggregate_sorted_file(sorted, output)
+
+@click.command()
+@click.argument("tmppairs")
+@click.argument("output")
+@click.option("--sorted")
+@click.option("--sortmemory", default="1G")
+@click.option("--tmpdir", default="/tmp")
+def dump_to_sort(tmppairs, output, sorted, sortmemory, tmpdir):
+    dump_to_sort_impl(tmppairs, output, sorted, sortmemory, tmpdir)
 
 if __name__ == "__main__":
     dump_to_sort()
