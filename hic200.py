@@ -21,7 +21,7 @@ from src.dump_to_sort import dump_to_sort_impl
 @click.argument("outputpath", required=True, type=click.Path(exists=False))
 def main(tmpdir, site_file, inputpath, outputpath):
     if not os.path.isdir(tmpdir):
-        print(f"directory {tmpdir} does not exists.")
+        print(f"directory {tmpdir} does not exist.")
         ans = input(f"proceed to make {tmpdir}? [y/N]")
         if ans not in {'Y', 'y'}:
             print("exit.")
