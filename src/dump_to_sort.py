@@ -3,7 +3,7 @@ import click
 
 def aggregate_sorted_file(sorted_file, output_file):
     with open(sorted_file) as fin, open(output_file, 'w') as fout:
-        fout.write("bin\tbin2\tscore\n")
+        fout.write("bin1\tbin2\tscore\n")
 
         prev_b1 = None
         prev_b2 = None
